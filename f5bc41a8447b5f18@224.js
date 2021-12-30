@@ -13,6 +13,32 @@ While H3 has a hierarchical relationship between cells at different resolutions,
 This issue is an unavoidable consequence of using a hexagonal grid rather than a square one, a trade-off for the other advantages of using hexagons. You can find [more discussion of these tradeoffs in the docs](https://h3geo.org/docs/usecases).
 `
 )});
+
+main.variable(observer("viewof initText")).define("viewof initText", ["html"], function(html)
+{
+  const defaultInit = '6';
+  const fromUrl = decodeURIComponent(window.location.hash.slice(1));
+  return html`<input type="text" style="font-size:1em; width:12em; height:2em; font-family:monospace;" value="${fromUrl || defaultInit}" />`
+});
+main.variable(observer("initText")).define("initText", ["Generators", "viewof initText"], (G, _) => G.input(_));
+
+main.variable(observer("viewof longText")).define("viewof longText", ["html"], function(html)
+{
+  const defaultLong = '-122.45';
+  const fromUrl = decodeURIComponent(window.location.hash.slice(1));
+  return html`<input type="text" style="font-size:1em; width:12em; height:2em; font-family:monospace;" value="${fromUrl || defaultLong}" />`
+});
+main.variable(observer("longText")).define("longText", ["Generators", "viewof longText"], (G, _) => G.input(_));
+
+main.variable(observer("viewof latText")).define("viewof latText", ["html"], function(html)
+{
+  const defaultLat = '37.75';
+  const fromUrl = decodeURIComponent(window.location.hash.slice(1));
+  return html`<input type="text" style="font-size:1em; width:12em; height:2em; font-family:monospace;" value="${fromUrl || defaultLat}" />`
+});
+main.variable(observer("latText")).define("latText", ["Generators", "viewof latText"], (G, _) => G.input(_));
+
+
 main.variable(observer("viewof colorText")).define("viewof colorText", ["html"], function(html)
 {
   const defaultColor = '#0000ff';
@@ -99,8 +125,8 @@ slider({
   main.variable(observer()).define(["md"], function(md){return(
 md`---`
 )});
-  main.variable(observer("parentRes")).define("parentRes", function(){return(
-6
+  main.variable(observer("parentRes")).define("parentRes", ["initText"], function(initText){return(
+    parseInt(initText)
 )});
   main.variable(observer("h3Resolution")).define("h3Resolution", ["parentRes","childDepth"], function(parentRes,childDepth){return(
 parentRes + childDepth
@@ -113,10 +139,10 @@ h3.geoToH3(config.lat, config.lng, parentRes)
   return h3.h3ToChildren(parent, h3Resolution);
 }
 );
-  main.variable(observer("config")).define("config", function(){return(
+  main.variable(observer("config")).define("config", ["longText", "latText"], function(longText, latText){return(
 {
-  lat: 37.75,
-  lng: -122.45,
+  lat: parseFloat(latText),
+  lng: parseFloat(longText),
   zoom: 10,
 }
 )});
