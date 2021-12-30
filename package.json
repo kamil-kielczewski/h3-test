@@ -1,0 +1,14 @@
+{
+  "name": "@nrabinowitz/h3-hierarchical-non-containment",
+  "main": "f5bc41a8447b5f18@224.js",
+  "version": "224.0.0",
+  "homepage": "https://observablehq.com/@nrabinowitz/h3-hierarchical-non-containment",
+  "author": {
+    "name": "Nick Rabinowitz",
+    "url": "https://observablehq.com/@nrabinowitz"
+  },
+  "type": "module",
+  "peerDependencies": {
+    "@observablehq/runtime": "4"
+  }
+}
