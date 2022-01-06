@@ -67,7 +67,7 @@ slider({
   main.variable(observer("childDepth")).define("childDepth", ["Generators", "viewof childDepth"], (G, _) => G.input(_));
   main.variable(observer("viewof map")).define("viewof map", ["html","width","mapboxgl","config","invalidation"], function*(html,width,mapboxgl,config,invalidation)
 {
-  const container = html`<div style="height:450px;width:${width}">`;
+  const container = html`<div style="height:850px;width:${width}">`;
   yield container; // Give the container dimensions.
   
   const map = container.value = new mapboxgl.Map({
